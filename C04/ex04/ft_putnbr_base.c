@@ -11,67 +11,71 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-
-void	rev_print_str(char *str)
+ 
+void	ft_write_rev(char *str)
 {
-	int	i;
+        int     idx;
 
-	i = 0;
-	while (str[i] != '\0')
-		i ++;
-	i --;
-	while (i >= 0)
-	{
-		write(1, str + i, 1);
-		i --;
-	}
+        idx = 0;
+        while (str[idx])
+                idx ++;
+        idx --;
+        while (idx >= 0)
+        {
+                write(1, str + idx, 1);
+                idx --;
+        }
 }
 
-void	ft_itostr_rev(int num, char *str)
+int     ft_check_base(char *base)
 {
-	int	i;
-	int	rem;
+        int     idx;
+        int     idx_while;
+        int     count;
 
-	i = 0;
-	if (num < 0)
-	{
-		num = num * (-1);
-	}
-	while (1)
-	{
-		rem = num % 10;
-		num = num / 10;
-		if (num != 0 || rem != 0)
-		{
-			str[i] = rem + '0';
-			i ++;
-		}
-		else
-		{
-			str[i] = '\0';
-			break ;
-		}
-	}
+        idx = 0;
+        count = 0;
+        while (base[idx])
+        {
+                idx_while = idx + 1;
+                while ((base[idx_while] != base[idx])&& base[idx_while])
+                        idx_while ++;
+                if (base[idx] == '-' || base[idx] == '+' || base[idx_while] != '\0')
+                        return (0);
+                count ++;
+                idx ++;
+        }
+        if (idx < 2)
+                return (0);
+        return (count);
 }
-
-void	ft_putnbr(int nb)
+void    ft_putnbr_base(int nbr, char *base)
 {
-	char	str[30];
-
-	if (nb == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		return ;
-	}
-	if (nb == 0)
-	{
-		write(1, "0", 1);
-		return ;
-	}
-	if (nb < 0)
-	{
-		write(1, "-", 1);
-	}
-	ft_itostr_rev(nb, str);
-	rev_print_str(str);
+        int             count;
+        int             idx;
+        char            str[100];
+        long long       num;
+        
+        num  = nbr;
+        idx = 0;
+        if (num < 0)
+                num = num * (-1);
+        count = ft_check_base(base);
+        if (count == 0)
+                return ;
+        while (num != 0)
+        {
+                str[idx] = base[num % count];
+                num = num / count;
+                idx ++;
+        }
+        if (nbr < 0)
+                str[++idx] = '-';
+        str[idx] = '\0';
+        ft_write_rev(str);
+}
+int main(void)
+{
+        ft_putnbr_base(1123, "git");
+        return 0;
 }
