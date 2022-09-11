@@ -63,6 +63,8 @@ void    ft_putnbr_base(int nbr, char *base)
         count = ft_check_base(base);
         if (count == 0)
                 return ;
+        if (num == 0)
+                str[idx++] = base[0];
         while (num != 0)
         {
                 str[idx] = base[num % count];
@@ -70,12 +72,7 @@ void    ft_putnbr_base(int nbr, char *base)
                 idx ++;
         }
         if (nbr < 0)
-                str[++idx] = '-';
+                str[idx++] = '-';
         str[idx] = '\0';
         ft_write_rev(str);
-}
-int main(void)
-{
-        ft_putnbr_base(1123, "git");
-        return 0;
 }
