@@ -1,23 +1,29 @@
-int     ft_is_prime(int nb)
-{
-        unsigned int i;
-        unsigned int idx;
-        long long  num;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_is_prime.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seulkim <seulkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/11 13:02:01 by seulkim           #+#    #+#             */
+/*   Updated: 2022/09/11 15:58:30 by seulkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-        i = 2;
-        num = nb;
-        if (nb <= 1)
-                return (0); 
-        while (i*i <= num)
-        {
-                idx = i;
-                while(i * idx <= num)
-                {
-                        if (i * idx == num)
-                                return (0);
-                        idx ++;
-                }
-                i ++;
-        }
-        return (1);
+int	ft_is_prime(int nb)
+{
+	long long	i;
+	long long	num;
+
+	num = nb;
+	i = 2;
+	if (num < 2)
+		return (0);
+	while (i * i <= num)
+	{
+		if (num % i == 0)
+			return (0);
+		i ++;
+	}
+	return (1);
 }
